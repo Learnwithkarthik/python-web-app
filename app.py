@@ -2,16 +2,15 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
-app.secret_key = "super-secret-key"  # required for sessions
+app.secret_key = "super-secret-key"
 
 # Temporary in-memory DB (will move to GCS later)
 users_db = {}
 
+# 🔹 Welcome / Landing Page (DEFAULT)
 @app.route("/")
-def home():
-    if "user" in session:
-        return redirect(url_for("dashboard"))
-    return redirect(url_for("login"))
+def welcome():
+    return render_template("welcome.html")
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
@@ -58,7 +57,7 @@ def dashboard():
 @app.route("/logout")
 def logout():
     session.pop("user", None)
-    return redirect(url_for("login"))
+    return redirect(url_for("welcome"))
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)

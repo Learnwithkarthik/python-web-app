@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="welcome">
+    <h1>Welcome to MyApp 🚀</h1>
+    <p>Secure Python web application with authentication and dashboards.</p>
+
+    {% if not session.get("user") %}
+        <a href="/signup" class="primary-btn">Get Started</a>
+    {% endif %}
+</div>
+{% endblock %}
+

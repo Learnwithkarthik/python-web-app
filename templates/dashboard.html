@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Dashboard</title>
-</head>
-<body>
-    <h2>Welcome {{ user }}</h2>
+{% extends "base.html" %}
 
-    <p>This is a protected dashboard.</p>
+{% block content %}
+<h2>Dashboard</h2>
 
-    <a href="/logout">Logout</a>
-</body>
-</html>
+<p>Welcome <strong>{{ user }}</strong>, you are logged in.</p>
+
+<p>This is a protected dashboard page.</p>
+{% endblock %}
 
