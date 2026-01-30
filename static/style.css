@@ -1,16 +1,76 @@
-/* -----------------------
-   Global Styles
------------------------ */
+/* =========================
+   GLOBAL STYLES
+========================= */
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #0f172a;   /* dark blue */
+    background-color: #0f172a;
     color: #e5e7eb;
 }
 
-/* -----------------------
-   Navbar
------------------------ */
+/* =========================
+   GCP LOGO BACKGROUND
+   (CLEAR + PROMINENT)
+========================= */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    /* GCP Logo */
+    background-image: url("/static/images/gcp-logo.png");
+    background-repeat: no-repeat;
+
+    /* Move logo behind heading (NOT cards) */
+    background-position: center 25%;
+
+    /* Bigger logo = clearly visible */
+    background-size: 700px;
+
+    /* Visibility tuning */
+    opacity: 0.7;
+    filter: blur(1px);
+
+    z-index: -2;
+    animation: gcpLogoFloat 18s ease-in-out infinite;
+}
+
+/* =========================
+   DARK OVERLAY (LIGHTER)
+========================= */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    /* Radial gradient keeps center brighter */
+    background: radial-gradient(
+        circle at center,
+        rgba(15, 23, 42, 0.55),
+        rgba(15, 23, 42, 0.9)
+    );
+
+    z-index: -1;
+}
+
+/* =========================
+   LOGO ANIMATION
+========================= */
+@keyframes gcpLogoFloat {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.12);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* =========================
+   NAVBAR
+========================= */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -22,7 +82,7 @@ body {
 .brand {
     font-size: 22px;
     font-weight: bold;
-    color: #38bdf8;
+    color: #4285f4; /* GCP Blue */
 }
 
 .nav-right a {
@@ -33,127 +93,121 @@ body {
 }
 
 .nav-right a:hover {
-    color: #38bdf8;
+    color: #34a853;
 }
 
 .nav-right .btn {
-    background-color: #38bdf8;
+    background-color: #4285f4;
     color: #020617;
     padding: 6px 14px;
-    border-radius: 5px;
-}
-
-.user {
-    margin-right: 15px;
-    color: #a5f3fc;
-}
-
-/* -----------------------
-   Page Content
------------------------ */
-.content {
-    padding: 60px 40px;
-    text-align: center;
-}
-
-/* -----------------------
-   Welcome Page
------------------------ */
-.welcome h1 {
-    font-size: 42px;
-    margin-bottom: 10px;
-}
-
-.welcome p {
-    font-size: 18px;
-    color: #cbd5f5;
-}
-
-.primary-btn {
-    display: inline-block;
-    margin-top: 25px;
-    background-color: #22c55e;
-    color: #020617;
-    padding: 12px 26px;
-    text-decoration: none;
     border-radius: 6px;
-    font-size: 16px;
     font-weight: bold;
 }
 
-.primary-btn:hover {
-    background-color: #16a34a;
+/* =========================
+   PAGE CONTENT
+========================= */
+.content {
+    padding: 70px 40px;
+    text-align: center;
 }
 
-/* -----------------------
-   Forms (Login / Signup / Upload)
------------------------ */
+/* =========================
+   GCP ACCENT BUTTONS
+========================= */
+.btn-gcp {
+    display: inline-block;
+    padding: 12px 26px;
+    margin: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #020617;
+}
+
+.btn-gcp.blue {
+    background-color: #4285f4;
+}
+
+.btn-gcp.green {
+    background-color: #34a853;
+}
+
+/* =========================
+   GCP SERVICE CARDS
+========================= */
+.cards {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 60px;
+}
+
+.card {
+    background-color: rgba(2, 6, 23, 0.92);
+    border-radius: 14px;
+    padding: 25px;
+    width: 260px;
+    text-align: left;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 14px 32px rgba(66, 133, 244, 0.4);
+}
+
+.card h3 {
+    margin-top: 0;
+    color: #38bdf8;
+}
+
+.card p {
+    color: #cbd5f5;
+    font-size: 14px;
+}
+
+/* =========================
+   FORMS
+========================= */
 form {
     max-width: 400px;
     margin: 0 auto;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="file"] {
+input,
+button {
     width: 100%;
     padding: 10px;
     border-radius: 6px;
     border: none;
-    outline: none;
-    font-size: 14px;
+    margin-top: 10px;
 }
 
 button {
-    background-color: #38bdf8;
-    color: #020617;
-    padding: 10px 18px;
-    border: none;
-    border-radius: 6px;
-    font-size: 14px;
+    background-color: #34a853;
     font-weight: bold;
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #0ea5e9;
-}
-
-/* -----------------------
-   Dashboard
------------------------ */
-hr {
-    border: 1px solid #1e293b;
-    margin: 30px 0;
-}
-
-/* -----------------------
-   File Upload Section
------------------------ */
+/* =========================
+   UPLOADED FILE CARDS
+========================= */
 .file-container {
     display: flex;
-    flex-wrap: wrap;
     gap: 15px;
     justify-content: center;
-    margin-top: 20px;
+    flex-wrap: wrap;
 }
 
 .file-card {
-    background-color: #16a34a;   /* green */
+    background-color: #34a853;
     color: #020617;
     padding: 14px 22px;
     border-radius: 10px;
     font-weight: bold;
     min-width: 160px;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-/* -----------------------
-   Footer / Utility
------------------------ */
-a {
-    cursor: pointer;
 }
 

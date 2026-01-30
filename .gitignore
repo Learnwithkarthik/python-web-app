@@ -1,0 +1,11 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+
+# Uploads (user data - NEVER commit)
+uploads/
+
+# OS
+.DS_Store
+

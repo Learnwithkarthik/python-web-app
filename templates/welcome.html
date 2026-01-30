@@ -1,13 +1,40 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="welcome">
-    <h1>Welcome to MyApp 🚀</h1>
-    <p>Secure Python web application with authentication and dashboards.</p>
 
-    {% if not session.get("user") %}
-        <a href="/signup" class="primary-btn">Get Started</a>
-    {% endif %}
+<h1>Welcome to My GCP-Powered App 🚀</h1>
+<p>Secure Python web application built on Google Cloud concepts</p>
+
+<a href="/signup" class="btn-gcp blue">Get Started</a>
+<a href="/login" class="btn-gcp green">Sign In</a>
+
+<div class="cards">
+
+    <div class="card">
+        <h3>📦 Google Cloud Storage</h3>
+        <p>
+            Store user files securely with high durability and scalability.
+            Ideal for objects, backups, and artifacts.
+        </p>
+    </div>
+
+    <div class="card">
+        <h3>☸️ Google Kubernetes Engine</h3>
+        <p>
+            Run containerized workloads with auto-scaling, rolling updates,
+            and production-grade orchestration.
+        </p>
+    </div>
+
+    <div class="card">
+        <h3>📊 BigQuery</h3>
+        <p>
+            Perform fast analytics on massive datasets using serverless,
+            SQL-based data warehouse.
+        </p>
+    </div>
+
 </div>
+
 {% endblock %}
 

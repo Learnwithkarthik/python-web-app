@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ title if title else "MyApp" }}</title>
+    <title>{{ title if title else "My GCP App" }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
 <nav class="navbar">
-    <div class="nav-left">
-        <span class="brand">MyApp</span>
-    </div>
+    <div class="brand">My GCP App</div>
     <div class="nav-right">
         {% if session.get("user") %}
-            <span class="user">Hi, {{ session["user"] }}</span>
+            <span>{{ session["user"] }}</span>
             <a href="/logout">Logout</a>
         {% else %}
             <a href="/login">Sign In</a>
