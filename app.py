@@ -4,6 +4,7 @@ import sqlalchemy
 from flask import Flask, render_template, request, redirect, url_for, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from google.cloud.sql.connector import Connector
+from google.cloud.sql.connector import IPTypes
 
 # ------------------------
 # Flask App Setup
@@ -35,6 +36,7 @@ def getconn():
         user=DB_USER,
         password=DB_PASSWORD,
         db=DB_NAME,
+        ip_type=IPTypes.PRIVATE,
     )
     return conn
 
