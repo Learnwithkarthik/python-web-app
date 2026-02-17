@@ -13,20 +13,25 @@ jobs:
 
     steps:
       - name: Get OIDC Token
-        id: oidc
+        id: get_token
         run: |
-          echo "Requesting OIDC token..."
-          TOKEN=$(curl -s -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+          echo "Requesting token..."
+
+          RESPONSE=$(curl -s -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
             "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=debug")
 
-          echo "$TOKEN" > token.json
+          echo "$RESPONSE" > response.json
+          cat response.json
 
-          echo "Raw token:"
-          cat token.json
+          TOKEN=$(echo "$RESPONSE" | grep -o '"value":"[^"]*' | cut -d'"' -f4)
+
+          echo "TOKEN=$TOKEN" >> $GITHUB_ENV
 
       - name: Decode JWT Payload
         run: |
-          TOKEN=$(jq -r '.value' token.json)
-          PAYLOAD=$(echo $TOKEN | cut -d "." -f2 | base64 -d 2>/dev/null)
+          PAYLOAD=$(echo $TOKEN | cut -d "." -f2)
+          echo "Base64 Payload:"
+          echo $PAYLOAD
+
           echo "Decoded Payload:"
-          echo "$PAYLOAD"
+          echo $PAYLOAD | base64 -d 2>/dev/null
