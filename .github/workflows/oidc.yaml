@@ -8,30 +8,13 @@ permissions:
   contents: read
 
 jobs:
-  debug-oidc:
+  debug:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Get OIDC Token
-        id: get_token
+      - name: Print OIDC Token (Safe Decode)
         run: |
-          echo "Requesting token..."
+          echo "Requesting OIDC token..."
 
-          RESPONSE=$(curl -s -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
-            "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=debug")
-
-          echo "$RESPONSE" > response.json
-          cat response.json
-
-          TOKEN=$(echo "$RESPONSE" | grep -o '"value":"[^"]*' | cut -d'"' -f4)
-
-          echo "TOKEN=$TOKEN" >> $GITHUB_ENV
-
-      - name: Decode JWT Payload
-        run: |
-          PAYLOAD=$(echo $TOKEN | cut -d "." -f2)
-          echo "Base64 Payload:"
-          echo $PAYLOAD
-
-          echo "Decoded Payload:"
-          echo $PAYLOAD | base64 -d 2>/dev/null
+          TOKEN=$(curl -s -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=debug" | sed -n 's/.*"value":"\([^"]*\)".*/\1/p')
